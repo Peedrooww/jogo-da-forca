@@ -1,0 +1,48 @@
+import random
+
+def escolher_palavra():
+    # Lista de palavras para o jogo
+    palavras = ['python', 'desenvolvimento', 'programacao', 'algoritmo', 'computador', 'animal', 'jogo', 'forca', 'palavra', 'letra', 'teclado', 'mouse', 'monitor', 'internet', 'rede', 'software', 'hardware', 'windows', 'linux', 'mac', 'apple', 'google', 'android', 'iphone', 'celular', 'tablet', 'aplicativo', 'banco', 'dados', 'informacao', 'tecnologia', 'sistema', 'operacional', 'arquivo', 'pasta', 'documento', 'texto', 'imagem', 'video', 'audio', 'musica', 'filme', 'serie', 'download', 'upload', 'navegador', 'email', 'mensagem', 'chat', 'rede', 'social', 'perfil', 'senha', 'login', 'usuario', 'cadastro', 'privacidade', 'seguranca', 'criptografia', 'firewall', 'antivirus', 'protecao', 'virus', 'malware', 'spyware', 'spam', 'phishing', 'engenharia', 'sistema', 'computacional', 'inteligencia', 'artificial', 'realidade', 'virtual', 'aumentada', 'jogos', 'simulacao', 'robotica', 'automacao', 'industria', 'internet', 'coisas' ]
+    return random.choice(palavras)
+
+def jogar_forca():
+    print("Bem-vindo ao Jogo da Forca!")
+    palavra_secreta = escolher_palavra()
+    letras_descobertas = ['_'] * len(palavra_secreta)
+    tentativas = 6
+    letras_erradas = []
+
+    while tentativas > 0:
+        print("\nPalavra:", ' '.join(letras_descobertas))
+        print(f"Tentativas restantes: {tentativas}")
+        print("Letras erradas:", ', '.join(letras_erradas))
+
+        palpite = input("Digite uma letra: ").lower()
+
+        if len(palpite) != 1 or not palpite.isalpha():
+            print("Por favor, digite uma única letra.")
+            continue
+
+        if palpite in letras_erradas or palpite in letras_descobertas:
+            print("Você já tentou essa letra.")
+            continue
+
+        if palpite in palavra_secreta:
+            print(f"Boa! A letra '{palpite}' está na palavra.")
+            for i in range(len(palavra_secreta)):
+                if palavra_secreta[i] == palpite:
+                    letras_descobertas[i] = palpite
+        else:
+            tentativas -= 1
+            letras_erradas.append(palpite)
+            print(f"A letra '{palpite}' não está na palavra.")
+
+        if '_' not in letras_descobertas:
+            print("\nParabéns! Você acertou a palavra:", palavra_secreta)
+            break
+
+    if tentativas == 0:
+        print("\nVocê perdeu! A palavra era:", palavra_secreta)
+
+if __name__ == "__main__":
+    jogar_forca()
